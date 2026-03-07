@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: hansardy-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    rootDir: backend
+    envVars:
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: PINECONE_INDEX_NAME
+        value: lazlow
+      - key: PINECONE_NAMESPACE
+        value: hansard
