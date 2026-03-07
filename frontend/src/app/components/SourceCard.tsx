@@ -11,6 +11,36 @@ interface Source {
   score: number;
 }
 
+function formatDate(source: Source): string {
+  // Try sitting_date first — if it looks valid (e.g., "2024-05-15")
+  if (source.sitting_date && /^\d{4}-\d{2}-\d{2}$/.test(source.sitting_date)) {
+    const d = new Date(source.sitting_date + "T00:00:00");
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleDateString("en-AU", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+    }
+  }
+  // Fallback: extract date from source_file (e.g., "2024-05-15.xml")
+  if (source.source_file) {
+    const match = source.source_file.match(/(\d{4}-\d{2}-\d{2})/);
+    if (match) {
+      const d = new Date(match[1] + "T00:00:00");
+      if (!isNaN(d.getTime())) {
+        return d.toLocaleDateString("en-AU", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      }
+    }
+  }
+  // Last resort: show raw sitting_date
+  return source.sitting_date || "Unknown date";
+}
+
 export default function SourceCard({
   source,
   index,
@@ -18,6 +48,8 @@ export default function SourceCard({
   source: Source;
   index: number;
 }) {
+  const displayDate = formatDate(source);
+
   return (
     <div className="min-w-[200px] max-w-[240px] flex-shrink-0 border border-stone-200 rounded-xl p-3 bg-white hover:border-stone-300 transition-colors">
       <div className="flex items-center gap-2 mb-1.5">
@@ -31,7 +63,7 @@ export default function SourceCard({
       <div className="text-[11px] text-stone-500 leading-snug">
         <span>{source.chamber}</span>
         <span className="mx-1">&middot;</span>
-        <span>{source.sitting_date}</span>
+        <span>{displayDate}</span>
       </div>
     </div>
   );

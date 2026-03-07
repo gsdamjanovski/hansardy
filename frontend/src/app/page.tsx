@@ -68,6 +68,7 @@ export default function Home() {
       let streamedText = "";
       let sources: Source[] = [];
       let currentEvent = "";
+      let dataLines: string[] = [];
 
       while (true) {
         const { done, value } = await reader.read();
@@ -79,32 +80,41 @@ export default function Home() {
 
         for (const rawLine of lines) {
           const line = rawLine.replace(/\r$/, "");
-          if (line.startsWith("event:")) {
+
+          if (line === "") {
+            // Empty line = SSE event dispatch boundary
+            // Process buffered data lines for this event
+            if (currentEvent && dataLines.length > 0) {
+              const fullData = dataLines.join("\n");
+
+              if (currentEvent === "sources") {
+                try {
+                  sources = JSON.parse(fullData);
+                } catch {
+                  // ignore parse errors
+                }
+              } else if (currentEvent === "token") {
+                streamedText += fullData;
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  const last = updated[updated.length - 1];
+                  if (last.role === "assistant") {
+                    last.content = streamedText;
+                    last.sources = sources;
+                  }
+                  return [...updated];
+                });
+              }
+            }
+            currentEvent = "";
+            dataLines = [];
+          } else if (line.startsWith("event:")) {
             currentEvent = line.slice(6).trim();
           } else if (line.startsWith("data:")) {
             const data = line.startsWith("data: ")
               ? line.slice(6)
               : line.slice(5);
-
-            if (currentEvent === "sources") {
-              try {
-                sources = JSON.parse(data);
-              } catch {
-                // ignore parse errors
-              }
-            } else if (currentEvent === "token") {
-              streamedText += data;
-              setMessages((prev) => {
-                const updated = [...prev];
-                const last = updated[updated.length - 1];
-                if (last.role === "assistant") {
-                  last.content = streamedText;
-                  last.sources = sources;
-                }
-                return [...updated];
-              });
-            }
-            currentEvent = "";
+            dataLines.push(data);
           }
         }
       }

@@ -5,6 +5,15 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
 
+function stripSourcesFooter(content: string): string {
+  // Remove the LLM-generated "Sources cited" / "Sources:" footer section
+  // since we already display source cards inline above the response
+  return content.replace(
+    /\n*\**\s*Sources?\s*(cited|referenced)?\s*:?\s*\**\s*\n(\[?\d+\]?[^\n]*\n?)*/gi,
+    ""
+  );
+}
+
 function processCitations(content: string): string {
   return content.replace(
     /\[(\d+)\]/g,
@@ -103,7 +112,8 @@ const components: Components = {
 };
 
 export default function MarkdownRenderer({ content }: { content: string }) {
-  const processed = processCitations(content);
+  const cleaned = stripSourcesFooter(content);
+  const processed = processCitations(cleaned);
 
   return (
     <div className="text-[15px] text-stone-800">
