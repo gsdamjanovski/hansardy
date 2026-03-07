@@ -6,12 +6,27 @@ import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
 
 function stripSourcesFooter(content: string): string {
-  // Remove the LLM-generated "Sources cited" / "Sources:" footer section
-  // since we already display source cards inline above the response
-  return content.replace(
-    /\n*\**\s*Sources?\s*(cited|referenced)?\s*:?\s*\**\s*\n(\[?\d+\]?[^\n]*\n?)*/gi,
+  // Remove the LLM-generated source attribution footer since we show
+  // source cards inline. The LLM produces varying formats:
+  //   "**Sources cited:**\n[1] Senate, ..."
+  //   "- [1] Senate, 15 May 2024 - ...\n- [3] Senate, ..."
+  //   "Sources:\n1. Senate, ..."
+  // Strategy: strip any trailing block of lines that are source references
+
+  // First, try stripping a "Sources cited/referenced:" header + everything after
+  let cleaned = content.replace(
+    /\n*\**\s*Sources?\s*(cited|referenced)?\s*:?\s*\**\s*\n[\s\S]*$/i,
     ""
   );
+  if (cleaned !== content) return cleaned.trimEnd();
+
+  // Otherwise, strip trailing lines that look like source citations:
+  // lines starting with [N], - [N], * [N], or N. followed by Senate/House/chamber info
+  cleaned = content.replace(
+    /(\n\s*[-•*]?\s*\[?\d+\]?\s*(Senate|House of Representatives)[^\n]*)+\s*$/gi,
+    ""
+  );
+  return cleaned.trimEnd();
 }
 
 function processCitations(content: string): string {
