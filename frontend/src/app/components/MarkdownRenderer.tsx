@@ -2,12 +2,13 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import type { Components } from "react-markdown";
 
 function processCitations(content: string): string {
   return content.replace(
     /\[(\d+)\]/g,
-    '<cite data-ref="$1">[$1]</cite>'
+    '<cite>[$1]</cite>'
   );
 }
 
@@ -108,10 +109,8 @@ export default function MarkdownRenderer({ content }: { content: string }) {
     <div className="text-[15px] text-stone-800">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
         components={components}
-        allowedElements={undefined}
-        unwrapDisallowed={false}
-        skipHtml={false}
       >
         {processed}
       </ReactMarkdown>
