@@ -79,7 +79,10 @@ export default function Home() {
           if (line.startsWith("event:")) {
             currentEvent = line.slice(6).trim();
           } else if (line.startsWith("data:")) {
-            const data = line.slice(5);
+            // SSE spec: strip exactly one space after "data:" if present
+            const data = line.startsWith("data: ")
+              ? line.slice(6)
+              : line.slice(5);
 
             if (currentEvent === "sources") {
               try {
