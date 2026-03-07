@@ -19,25 +19,20 @@ export default function SourceCard({
   index: number;
 }) {
   return (
-    <div className="border border-gray-200 rounded-lg p-3 text-sm bg-white">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex-shrink-0">
+    <div className="min-w-[200px] max-w-[240px] flex-shrink-0 border border-stone-200 rounded-xl p-3 bg-white hover:border-stone-300 transition-colors">
+      <div className="flex items-center gap-2 mb-1.5">
+        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-[10px] font-bold flex-shrink-0">
           {index}
         </span>
-        <span className="font-medium text-gray-900 truncate">
-          {source.speakers}
+        <span className="font-medium text-stone-900 text-xs truncate">
+          {source.speakers || "Parliamentary Record"}
         </span>
       </div>
-      <div className="flex gap-2 text-xs text-gray-500 mb-2 flex-wrap">
+      <div className="text-[11px] text-stone-500 leading-snug">
         <span>{source.chamber}</span>
-        <span>·</span>
+        <span className="mx-1">&middot;</span>
         <span>{source.sitting_date}</span>
-        <span>·</span>
-        <span>Parliament {source.parliament_no}</span>
       </div>
-      <p className="text-gray-700 text-xs leading-relaxed line-clamp-4">
-        {source.text}
-      </p>
     </div>
   );
 }

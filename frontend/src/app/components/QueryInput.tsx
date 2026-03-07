@@ -38,22 +38,22 @@ export default function QueryInput({
   };
 
   return (
-    <div className="border border-gray-300 rounded-2xl bg-white flex items-end gap-2 p-3 shadow-sm">
+    <div className="border border-stone-200 rounded-2xl bg-white flex items-end gap-2 p-3 shadow-sm focus-within:ring-2 focus-within:ring-teal-500/20 focus-within:border-stone-300 transition-all duration-200">
       <textarea
         ref={textareaRef}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         onInput={handleInput}
-        placeholder="Ask about Australian Hansard..."
+        placeholder="Ask about Australian Parliament..."
         rows={1}
         disabled={disabled}
-        className="flex-1 resize-none outline-none text-sm text-gray-900 placeholder:text-gray-400 bg-transparent leading-relaxed"
+        className="flex-1 resize-none outline-none text-[15px] text-stone-900 placeholder:text-stone-400 bg-transparent leading-relaxed"
       />
       <button
         onClick={handleSubmit}
         disabled={disabled || !query.trim()}
-        className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center hover:bg-teal-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
         <svg
           width="16"
@@ -65,8 +65,8 @@ export default function QueryInput({
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <line x1="22" y1="2" x2="11" y2="13" />
-          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          <line x1="12" y1="19" x2="12" y2="5" />
+          <polyline points="5 12 12 5 19 12" />
         </svg>
       </button>
     </div>
