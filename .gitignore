@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Env files
+.env
+backend/.env
+
+# Next.js
+.next/
+out/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Python
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+
+# Inspection script (not needed in repo)
+inspect_laslow.py
