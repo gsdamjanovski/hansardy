@@ -1,9 +1,17 @@
 """Retrieval module — searches the Laslow Pinecone index for Hansard chunks."""
 
+from __future__ import annotations
+
 from pinecone import Pinecone
 
 from .config import settings
 from .models import Source
+
+# Avoid circular import — ClassifiedQuery is only used for type hints
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .classifier import ClassifiedQuery
 
 pc = Pinecone(api_key=settings.pinecone_api_key)
 index = pc.Index(settings.pinecone_index_name)
@@ -150,4 +158,155 @@ def search_and_rerank(
                 source_file=original.source_file,
                 score=item.score,
             ))
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Classified query retrieval — uses ClassifiedQuery to drive search strategy
+# ---------------------------------------------------------------------------
+
+
+def search_with_raw_filters(
+    query: str,
+    top_k: int = 20,
+    raw_filters: dict | None = None,
+) -> list[Source]:
+    """Semantic search with a raw Pinecone filter dict (from the classifier)."""
+    embedding = pc.inference.embed(
+        model=settings.embedding_model,
+        inputs=[query],
+        parameters={"input_type": "query"},
+    )
+
+    query_kwargs = {
+        "namespace": settings.pinecone_namespace,
+        "vector": embedding.data[0].values,
+        "top_k": top_k,
+        "include_metadata": True,
+    }
+    if raw_filters:
+        query_kwargs["filter"] = raw_filters
+
+    results = index.query(**query_kwargs)
+    return [_match_to_source(m) for m in results.matches]
+
+
+def classified_search(classified: ClassifiedQuery) -> list[Source]:
+    """Route retrieval based on classified query strategy."""
+    strategy = classified.retrieval.strategy
+
+    if strategy == "multi" and classified.retrieval.sub_queries:
+        return _multi_search(classified)
+    elif strategy == "temporal":
+        return _temporal_search(classified)
+    else:
+        return _single_classified_search(classified)
+
+
+def _single_classified_search(classified: ClassifiedQuery) -> list[Source]:
+    """Single search with classifier-generated filters + rewritten query, then rerank."""
+    filters = classified.pinecone_filters or None
+
+    candidates = search_with_raw_filters(
+        query=classified.rewritten_query,
+        top_k=classified.retrieval.top_k,
+        raw_filters=filters,
+    )
+
+    if not candidates:
+        return []
+
+    # Re-rank
+    documents = [{"id": s.id, "text": s.text} for s in candidates]
+    reranked = pc.inference.rerank(
+        model=settings.rerank_model,
+        query=classified.rewritten_query,
+        documents=documents,
+        top_n=settings.rerank_top_n,
+        return_documents=True,
+    )
+
+    candidate_map = {s.id: s for s in candidates}
+    results = []
+    for item in reranked.data:
+        doc = item.document
+        source_id = doc.get("id", "")
+        if source_id in candidate_map:
+            original = candidate_map[source_id]
+            results.append(Source(
+                id=original.id,
+                text=original.text,
+                chamber=original.chamber,
+                sitting_date=original.sitting_date,
+                speakers=original.speakers,
+                parliament_no=original.parliament_no,
+                source_file=original.source_file,
+                score=item.score,
+            ))
+    return results
+
+
+def _multi_search(classified: ClassifiedQuery) -> list[Source]:
+    """Run sub-queries in sequence, then merge and re-rank for balanced results.
+
+    For COMPARISON queries, each sub_query targets one entity (e.g. one party/speaker).
+    Results are interleaved to ensure balanced representation.
+    """
+    all_candidates: list[Source] = []
+    seen_ids: set[str] = set()
+    filters = classified.pinecone_filters or None
+
+    # Per-sub-query top_k: split budget across sub-queries
+    sub_top_k = max(10, classified.retrieval.top_k // len(classified.retrieval.sub_queries))
+
+    for sub_query in classified.retrieval.sub_queries:
+        candidates = search_with_raw_filters(
+            query=sub_query,
+            top_k=sub_top_k,
+            raw_filters=filters,
+        )
+        # Deduplicate across sub-queries
+        for c in candidates:
+            if c.id not in seen_ids:
+                seen_ids.add(c.id)
+                all_candidates.append(c)
+
+    if not all_candidates:
+        return []
+
+    # Re-rank all candidates against the original rewritten query
+    documents = [{"id": s.id, "text": s.text} for s in all_candidates]
+    reranked = pc.inference.rerank(
+        model=settings.rerank_model,
+        query=classified.rewritten_query,
+        documents=documents,
+        top_n=min(settings.rerank_top_n * 2, len(all_candidates)),  # Wider net for comparison
+        return_documents=True,
+    )
+
+    candidate_map = {s.id: s for s in all_candidates}
+    results = []
+    for item in reranked.data:
+        doc = item.document
+        source_id = doc.get("id", "")
+        if source_id in candidate_map:
+            original = candidate_map[source_id]
+            results.append(Source(
+                id=original.id,
+                text=original.text,
+                chamber=original.chamber,
+                sitting_date=original.sitting_date,
+                speakers=original.speakers,
+                parliament_no=original.parliament_no,
+                source_file=original.source_file,
+                score=item.score,
+            ))
+    return results
+
+
+def _temporal_search(classified: ClassifiedQuery) -> list[Source]:
+    """Temporal search — same as single but results sorted by date after re-ranking."""
+    results = _single_classified_search(classified)
+    # Sort by sitting_date descending (most recent first)
+    results.sort(key=lambda s: s.sitting_date, reverse=True)
     return results

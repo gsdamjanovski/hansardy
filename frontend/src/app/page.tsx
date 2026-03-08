@@ -19,6 +19,7 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   sources?: Source[];
+  queryType?: string;
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -67,6 +68,7 @@ export default function Home() {
       let buffer = "";
       let streamedText = "";
       let sources: Source[] = [];
+      let queryType = "";
       let currentEvent = "";
       let dataLines: string[] = [];
 
@@ -87,7 +89,22 @@ export default function Home() {
             if (currentEvent && dataLines.length > 0) {
               const fullData = dataLines.join("\n");
 
-              if (currentEvent === "sources") {
+              if (currentEvent === "metadata") {
+                try {
+                  const meta = JSON.parse(fullData);
+                  queryType = meta.query_type || "";
+                  setMessages((prev) => {
+                    const updated = [...prev];
+                    const last = updated[updated.length - 1];
+                    if (last.role === "assistant") {
+                      last.queryType = queryType;
+                    }
+                    return [...updated];
+                  });
+                } catch {
+                  // ignore parse errors
+                }
+              } else if (currentEvent === "sources") {
                 try {
                   sources = JSON.parse(fullData);
                 } catch {
@@ -125,6 +142,7 @@ export default function Home() {
         if (last.role === "assistant") {
           last.content = streamedText;
           last.sources = sources;
+          last.queryType = queryType;
         }
         return [...updated];
       });
@@ -184,6 +202,7 @@ export default function Home() {
                 role={msg.role}
                 content={msg.content}
                 sources={msg.sources}
+                queryType={msg.queryType}
               />
             ))}
             {isStreaming &&

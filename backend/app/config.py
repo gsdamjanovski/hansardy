@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     rerank_model: str = "cohere-rerank-3.5"
     embedding_model: str = "llama-text-embed-v2"
 
+    # Classification
+    classifier_model: str = "claude-3-5-haiku-20241022"
+
     # Generation
     generation_model: str = "claude-opus-4-20250514"
     max_tokens: int = 4096
