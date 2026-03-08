@@ -26,12 +26,25 @@ CONTEXT FORMAT:
 You will receive Hansard passages in <context> tags. Each has a numeric ID and metadata.
 Reference them as [1], [2], etc. in your response. At the end of your response, list the sources you cited with their sitting date, chamber, and speaker(s)."""
 
+# Rough estimate: 1 token ≈ 4 characters for English text
+CHARS_PER_TOKEN = 4
 
-def _build_context_block(sources: list[Source]) -> str:
-    """Format retrieved sources into a context block for Opus."""
+
+def _build_context_block(
+    sources: list[Source],
+    context_budget_tokens: int | None = None,
+) -> str:
+    """Format retrieved sources into a context block for Opus.
+
+    If context_budget_tokens is provided, include sources until the budget is
+    approximately exhausted (measured by character count / CHARS_PER_TOKEN).
+    """
+    budget_chars = (context_budget_tokens * CHARS_PER_TOKEN) if context_budget_tokens else None
     parts = []
+    running_chars = 0
+
     for i, source in enumerate(sources, 1):
-        parts.append(
+        block = (
             f'<source id="{i}">\n'
             f"  <metadata>\n"
             f"    <sitting_date>{source.sitting_date}</sitting_date>\n"
@@ -43,12 +56,25 @@ def _build_context_block(sources: list[Source]) -> str:
             f"  <text>\n{source.text}\n  </text>\n"
             f"</source>"
         )
+
+        if budget_chars is not None:
+            block_chars = len(block)
+            if running_chars + block_chars > budget_chars and parts:
+                break  # Budget exhausted; keep at least one source
+            running_chars += block_chars
+
+        parts.append(block)
+
     return "<context>\n" + "\n\n".join(parts) + "\n</context>"
 
 
-def generate(query: str, sources: list[Source]) -> str:
+def generate(
+    query: str,
+    sources: list[Source],
+    context_budget_tokens: int | None = None,
+) -> str:
     """Generate a non-streaming answer from Opus given a query and retrieved sources."""
-    context = _build_context_block(sources)
+    context = _build_context_block(sources, context_budget_tokens)
     user_message = f"{context}\n\nQuestion: {query}"
 
     response = client.messages.create(
@@ -60,9 +86,13 @@ def generate(query: str, sources: list[Source]) -> str:
     return response.content[0].text
 
 
-def generate_stream(query: str, sources: list[Source]) -> Generator[str, None, None]:
+def generate_stream(
+    query: str,
+    sources: list[Source],
+    context_budget_tokens: int | None = None,
+) -> Generator[str, None, None]:
     """Stream an answer from Opus token-by-token."""
-    context = _build_context_block(sources)
+    context = _build_context_block(sources, context_budget_tokens)
     user_message = f"{context}\n\nQuestion: {query}"
 
     with client.messages.stream(
