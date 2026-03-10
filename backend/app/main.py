@@ -111,7 +111,11 @@ async def api_ask(req: AskRequest):
 
     # 4. Generate
     context_budget = classified.retrieval.context_budget_tokens if classified else None
-    answer = generate(req.query, sources, context_budget_tokens=context_budget)
+    answer = generate(
+        req.query, sources,
+        context_budget_tokens=context_budget,
+        speaker_profiles=speaker_profiles,
+    )
 
     return AskResponse(
         query=req.query,
@@ -175,7 +179,11 @@ async def api_ask_stream(req: AskRequest):
             yield {"event": "speakers", "data": json.dumps(speakers_data)}
 
         # Stream the answer token by token
-        for token in generate_stream(req.query, sources, context_budget_tokens=context_budget):
+        for token in generate_stream(
+            req.query, sources,
+            context_budget_tokens=context_budget,
+            speaker_profiles=speaker_profiles,
+        ):
             yield {"event": "token", "data": token}
 
         yield {"event": "done", "data": ""}

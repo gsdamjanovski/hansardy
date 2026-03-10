@@ -136,6 +136,67 @@ class TestCleanSpeakerMetadata:
 
 
 # ---------------------------------------------------------------------------
+# 1b. Speaker profiles block for generation
+# ---------------------------------------------------------------------------
+
+
+class TestBuildSpeakerProfilesBlock:
+    def test_empty_profiles_returns_empty_string(self):
+        from app.generation import _build_speaker_profiles_block
+
+        assert _build_speaker_profiles_block({}) == ""
+
+    def test_includes_profile_fields(self):
+        from app.generation import _build_speaker_profiles_block
+        from app.models import SpeakerProfile
+
+        profile = SpeakerProfile(
+            id="speaker:whitlam:labor",
+            canonical_name="Whitlam, Edward Gough",
+            display_name="Edward Gough Whitlam",
+            primary_party="Labor",
+            era="pre-2006",
+            appearances=542,
+            chambers=["House of Representatives"],
+            year_start=1953,
+            year_end=1978,
+            electorates=["Werriwa"],
+            notable="21st Prime Minister of Australia",
+        )
+        block = _build_speaker_profiles_block({"Whitlam": profile})
+
+        assert "<speaker_profiles>" in block
+        assert 'name="Whitlam"' in block
+        assert "<party>Labor</party>" in block
+        assert "<notable>21st Prime Minister of Australia</notable>" in block
+        assert "<electorates>Werriwa</electorates>" in block
+
+    def test_included_in_user_message(self):
+        from app.generation import _build_user_message
+        from app.models import SpeakerProfile, Source
+
+        source = Source(
+            id="chunk1", text="text", chamber="House",
+            sitting_date="2024-01-01", speakers="Whitlam",
+            parliament_no=47, source_file="2024-01-01.xml", score=0.9,
+        )
+        profile = SpeakerProfile(
+            id="speaker:whitlam:labor",
+            canonical_name="Whitlam, Edward Gough",
+            display_name="Edward Gough Whitlam",
+            primary_party="Labor", era="pre-2006", appearances=542,
+        )
+        msg = _build_user_message(
+            "Tell me about Whitlam",
+            [source],
+            speaker_profiles={"Whitlam": profile},
+        )
+        assert "<speaker_profiles>" in msg
+        assert "<context>" in msg
+        assert "Question: Tell me about Whitlam" in msg
+
+
+# ---------------------------------------------------------------------------
 # 2. SpeakerProfile model
 # ---------------------------------------------------------------------------
 
