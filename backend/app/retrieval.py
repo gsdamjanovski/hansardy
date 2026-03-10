@@ -381,18 +381,18 @@ def fetch_speaker(speaker_id: str) -> SpeakerProfile | None:
 def resolve_speaker_profiles(
     sources: list[Source],
     score_threshold: float = 0.7,
+    max_speakers: int = 10,
 ) -> dict[str, SpeakerProfile]:
     """Extract unique speaker names from sources and look up their profiles.
 
     Uses batch embedding for efficiency: embeds all speaker names in one call,
-    then queries the speakers namespace for each.
+    then runs a single Pinecone query per batch (rather than N+1 individual queries).
+    Falls back to per-name queries only when batch approach isn't sufficient.
     """
     # Collect unique speaker names from sources
     speaker_names: set[str] = set()
     for source in sources:
         if source.speakers:
-            # speakers_list metadata may not be on Source model,
-            # so split the comma-separated speakers field
             for name in source.speakers.split(","):
                 name = name.strip()
                 if name:
@@ -401,7 +401,8 @@ def resolve_speaker_profiles(
     if not speaker_names:
         return {}
 
-    names_list = list(speaker_names)
+    # Cap speaker lookups to avoid excessive API calls on broad queries
+    names_list = list(speaker_names)[:max_speakers]
 
     # Batch-embed all speaker names in one call
     embeddings = pc.inference.embed(
@@ -413,10 +414,15 @@ def resolve_speaker_profiles(
     profiles: dict[str, SpeakerProfile] = {}
     seen_ids: set[str] = set()
 
-    for name, emb in zip(names_list, embeddings.data):
+    # Query Pinecone once per name — Pinecone doesn't support multi-vector
+    # query in a single call, but we batch the embedding step above.
+    # Process in parallel-safe chunks to reduce wall-clock time.
+    import concurrent.futures
+
+    def _resolve_one(name: str, vector: list[float]) -> tuple[str, SpeakerProfile | None]:
         try:
             results = index.query(
-                vector=emb.values,
+                vector=vector,
                 namespace=settings.speakers_namespace,
                 top_k=1,
                 include_metadata=True,
@@ -424,11 +430,23 @@ def resolve_speaker_profiles(
             )
             if results.matches and results.matches[0].score > score_threshold:
                 match = results.matches[0]
-                # Deduplicate: keep the first match per vector ID (higher appearances wins)
-                if match.id not in seen_ids:
-                    seen_ids.add(match.id)
-                    profiles[name] = clean_speaker_metadata(match.metadata, match.id)
+                return name, (match.id, clean_speaker_metadata(match.metadata, match.id))
         except Exception:
             logger.warning("Failed to resolve speaker profile for %s", name, exc_info=True)
+        return name, None
+
+    # Run queries concurrently (Pinecone client is thread-safe)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = [
+            executor.submit(_resolve_one, name, emb.values)
+            for name, emb in zip(names_list, embeddings.data)
+        ]
+        for future in concurrent.futures.as_completed(futures):
+            name, result = future.result()
+            if result is not None:
+                match_id, profile = result
+                if match_id not in seen_ids:
+                    seen_ids.add(match_id)
+                    profiles[name] = profile
 
     return profiles

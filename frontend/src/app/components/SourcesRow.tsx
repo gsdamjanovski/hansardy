@@ -1,17 +1,7 @@
 "use client";
 
 import SourceCard from "./SourceCard";
-
-interface Source {
-  id: string;
-  text: string;
-  chamber: string;
-  sitting_date: string;
-  speakers: string;
-  parliament_no: number;
-  source_file: string;
-  score: number;
-}
+import type { Source } from "../types";
 
 export default function SourcesRow({ sources }: { sources: Source[] }) {
   if (!sources || sources.length === 0) return null;
