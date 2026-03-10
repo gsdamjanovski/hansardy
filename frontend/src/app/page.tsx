@@ -3,44 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import ChatMessage from "./components/ChatMessage";
 import QueryInput from "./components/QueryInput";
-
-interface Source {
-  id: string;
-  text: string;
-  chamber: string;
-  sitting_date: string;
-  speakers: string;
-  parliament_no: number;
-  source_file: string;
-  score: number;
-}
-
-interface SpeakerProfile {
-  id: string;
-  canonical_name: string;
-  display_name: string;
-  primary_party: string;
-  era: string;
-  appearances: number;
-  chambers: string[];
-  year_start: number | null;
-  year_end: number | null;
-  date_of_birth: string | null;
-  date_of_death: string | null;
-  gender: string | null;
-  notable: string | null;
-  electorates: string[];
-  photo_url: string | null;
-  aph_id: string | null;
-}
-
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-  sources?: Source[];
-  speakers?: Record<string, SpeakerProfile>;
-  queryType?: string;
-}
+import type { Source, SpeakerProfile, Message } from "./types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 

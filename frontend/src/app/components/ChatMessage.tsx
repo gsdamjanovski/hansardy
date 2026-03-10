@@ -3,36 +3,7 @@
 import MarkdownRenderer from "./MarkdownRenderer";
 import SourcesRow from "./SourcesRow";
 import SpeakersRow from "./SpeakersRow";
-
-interface Source {
-  id: string;
-  text: string;
-  chamber: string;
-  sitting_date: string;
-  speakers: string;
-  parliament_no: number;
-  source_file: string;
-  score: number;
-}
-
-interface SpeakerProfile {
-  id: string;
-  canonical_name: string;
-  display_name: string;
-  primary_party: string;
-  era: string;
-  appearances: number;
-  chambers: string[];
-  year_start: number | null;
-  year_end: number | null;
-  date_of_birth: string | null;
-  date_of_death: string | null;
-  gender: string | null;
-  notable: string | null;
-  electorates: string[];
-  photo_url: string | null;
-  aph_id: string | null;
-}
+import type { Source, SpeakerProfile } from "../types";
 
 const QUERY_TYPE_LABELS: Record<string, { label: string; color: string }> = {
   FACTUAL_LOOKUP: { label: "Factual", color: "bg-blue-50 text-blue-700 border-blue-200" },

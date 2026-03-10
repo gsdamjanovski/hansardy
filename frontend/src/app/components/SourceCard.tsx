@@ -1,15 +1,6 @@
 "use client";
 
-interface Source {
-  id: string;
-  text: string;
-  chamber: string;
-  sitting_date: string;
-  speakers: string;
-  parliament_no: number;
-  source_file: string;
-  score: number;
-}
+import type { Source } from "../types";
 
 function formatDate(source: Source): string {
   // Try sitting_date first — if it looks valid (e.g., "2024-05-15")
