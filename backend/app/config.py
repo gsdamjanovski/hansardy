@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     anthropic_api_key: str
     pinecone_index_name: str = "lazlow"
     pinecone_namespace: str = "hansard"
+    speakers_namespace: str = "speakers"
 
     # Retrieval defaults
     search_top_k: int = 20

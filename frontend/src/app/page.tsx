@@ -15,10 +15,30 @@ interface Source {
   score: number;
 }
 
+interface SpeakerProfile {
+  id: string;
+  canonical_name: string;
+  display_name: string;
+  primary_party: string;
+  era: string;
+  appearances: number;
+  chambers: string[];
+  year_start: number | null;
+  year_end: number | null;
+  date_of_birth: string | null;
+  date_of_death: string | null;
+  gender: string | null;
+  notable: string | null;
+  electorates: string[];
+  photo_url: string | null;
+  aph_id: string | null;
+}
+
 interface Message {
   role: "user" | "assistant";
   content: string;
   sources?: Source[];
+  speakers?: Record<string, SpeakerProfile>;
   queryType?: string;
 }
 
@@ -68,6 +88,7 @@ export default function Home() {
       let buffer = "";
       let streamedText = "";
       let sources: Source[] = [];
+      let speakerProfiles: Record<string, SpeakerProfile> = {};
       let queryType = "";
       let currentEvent = "";
       let dataLines: string[] = [];
@@ -110,6 +131,20 @@ export default function Home() {
                 } catch {
                   // ignore parse errors
                 }
+              } else if (currentEvent === "speakers") {
+                try {
+                  speakerProfiles = JSON.parse(fullData);
+                  setMessages((prev) => {
+                    const updated = [...prev];
+                    const last = updated[updated.length - 1];
+                    if (last.role === "assistant") {
+                      last.speakers = speakerProfiles;
+                    }
+                    return [...updated];
+                  });
+                } catch {
+                  // ignore parse errors
+                }
               } else if (currentEvent === "token") {
                 streamedText += fullData;
                 setMessages((prev) => {
@@ -142,6 +177,7 @@ export default function Home() {
         if (last.role === "assistant") {
           last.content = streamedText;
           last.sources = sources;
+          last.speakers = speakerProfiles;
           last.queryType = queryType;
         }
         return [...updated];
@@ -202,6 +238,7 @@ export default function Home() {
                 role={msg.role}
                 content={msg.content}
                 sources={msg.sources}
+                speakers={msg.speakers}
                 queryType={msg.queryType}
               />
             ))}

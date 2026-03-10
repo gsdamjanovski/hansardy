@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import logging
+import re
+
 from pinecone import Pinecone
 
 from .config import settings
-from .models import Source
+from .models import Source, SpeakerProfile
+
+logger = logging.getLogger(__name__)
 
 # Avoid circular import — ClassifiedQuery is only used for type hints
 from typing import TYPE_CHECKING
@@ -310,3 +315,120 @@ def _temporal_search(classified: ClassifiedQuery) -> list[Source]:
     # Sort by sitting_date descending (most recent first)
     results.sort(key=lambda s: s.sitting_date, reverse=True)
     return results
+
+
+# ---------------------------------------------------------------------------
+# Speaker profile retrieval — queries the speakers namespace
+# ---------------------------------------------------------------------------
+
+_CITATION_RE = re.compile(r"\[\d+\]")
+
+
+def clean_speaker_metadata(meta: dict, vector_id: str = "") -> SpeakerProfile:
+    """Strip citation artifacts and build a SpeakerProfile from Pinecone metadata."""
+
+    def _clean_str(val: str) -> str:
+        return _CITATION_RE.sub("", val).strip()
+
+    return SpeakerProfile(
+        id=vector_id,
+        canonical_name=_clean_str(meta.get("canonical_name", "")),
+        display_name=_clean_str(meta.get("display_name", "")),
+        primary_party=_clean_str(meta.get("primary_party", "")),
+        era=meta.get("era", ""),
+        appearances=meta.get("appearances", 0),
+        chambers=meta.get("chambers", []),
+        year_start=meta.get("year_start"),
+        year_end=meta.get("year_end"),
+        date_of_birth=_clean_str(meta.get("date_of_birth", "")) or None,
+        date_of_death=_clean_str(meta.get("date_of_death", "")) or None,
+        gender=meta.get("gender"),
+        notable=_clean_str(meta.get("notable", "")) or None,
+        electorates=meta.get("electorates", []),
+        photo_url=meta.get("photo_url"),
+        aph_id=meta.get("aph_id"),
+    )
+
+
+def search_speakers(query: str, limit: int = 5) -> list[SpeakerProfile]:
+    """Semantic search for speaker profiles in the speakers namespace."""
+    embedding = pc.inference.embed(
+        model=settings.embedding_model,
+        inputs=[query],
+        parameters={"input_type": "query"},
+    )
+
+    results = index.query(
+        vector=embedding.data[0].values,
+        namespace=settings.speakers_namespace,
+        top_k=limit,
+        include_metadata=True,
+        filter={"type": {"$eq": "speaker_bio"}},
+    )
+
+    return [clean_speaker_metadata(m.metadata, m.id) for m in results.matches]
+
+
+def fetch_speaker(speaker_id: str) -> SpeakerProfile | None:
+    """Fetch a single speaker profile by vector ID."""
+    result = index.fetch(ids=[speaker_id], namespace=settings.speakers_namespace)
+    if not result.vectors or speaker_id not in result.vectors:
+        return None
+    vec = result.vectors[speaker_id]
+    return clean_speaker_metadata(vec.metadata, speaker_id)
+
+
+def resolve_speaker_profiles(
+    sources: list[Source],
+    score_threshold: float = 0.7,
+) -> dict[str, SpeakerProfile]:
+    """Extract unique speaker names from sources and look up their profiles.
+
+    Uses batch embedding for efficiency: embeds all speaker names in one call,
+    then queries the speakers namespace for each.
+    """
+    # Collect unique speaker names from sources
+    speaker_names: set[str] = set()
+    for source in sources:
+        if source.speakers:
+            # speakers_list metadata may not be on Source model,
+            # so split the comma-separated speakers field
+            for name in source.speakers.split(","):
+                name = name.strip()
+                if name:
+                    speaker_names.add(name)
+
+    if not speaker_names:
+        return {}
+
+    names_list = list(speaker_names)
+
+    # Batch-embed all speaker names in one call
+    embeddings = pc.inference.embed(
+        model=settings.embedding_model,
+        inputs=names_list,
+        parameters={"input_type": "query"},
+    )
+
+    profiles: dict[str, SpeakerProfile] = {}
+    seen_ids: set[str] = set()
+
+    for name, emb in zip(names_list, embeddings.data):
+        try:
+            results = index.query(
+                vector=emb.values,
+                namespace=settings.speakers_namespace,
+                top_k=1,
+                include_metadata=True,
+                filter={"type": {"$eq": "speaker_bio"}},
+            )
+            if results.matches and results.matches[0].score > score_threshold:
+                match = results.matches[0]
+                # Deduplicate: keep the first match per vector ID (higher appearances wins)
+                if match.id not in seen_ids:
+                    seen_ids.add(match.id)
+                    profiles[name] = clean_speaker_metadata(match.metadata, match.id)
+        except Exception:
+            logger.warning("Failed to resolve speaker profile for %s", name, exc_info=True)
+
+    return profiles
