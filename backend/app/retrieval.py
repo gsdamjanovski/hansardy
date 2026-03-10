@@ -380,7 +380,7 @@ def fetch_speaker(speaker_id: str) -> SpeakerProfile | None:
 
 def resolve_speaker_profiles(
     sources: list[Source],
-    score_threshold: float = 0.7,
+    score_threshold: float = 0.3,
     max_speakers: int = 10,
 ) -> dict[str, SpeakerProfile]:
     """Extract unique speaker names from sources and look up their profiles.
