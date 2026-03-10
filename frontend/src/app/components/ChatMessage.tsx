@@ -2,6 +2,7 @@
 
 import MarkdownRenderer from "./MarkdownRenderer";
 import SourcesRow from "./SourcesRow";
+import SpeakersRow from "./SpeakersRow";
 
 interface Source {
   id: string;
@@ -12,6 +13,25 @@ interface Source {
   parliament_no: number;
   source_file: string;
   score: number;
+}
+
+interface SpeakerProfile {
+  id: string;
+  canonical_name: string;
+  display_name: string;
+  primary_party: string;
+  era: string;
+  appearances: number;
+  chambers: string[];
+  year_start: number | null;
+  year_end: number | null;
+  date_of_birth: string | null;
+  date_of_death: string | null;
+  gender: string | null;
+  notable: string | null;
+  electorates: string[];
+  photo_url: string | null;
+  aph_id: string | null;
 }
 
 const QUERY_TYPE_LABELS: Record<string, { label: string; color: string }> = {
@@ -27,11 +47,13 @@ export default function ChatMessage({
   role,
   content,
   sources,
+  speakers,
   queryType,
 }: {
   role: "user" | "assistant";
   content: string;
   sources?: Source[];
+  speakers?: Record<string, SpeakerProfile>;
   queryType?: string;
 }) {
   const isUser = role === "user";
@@ -47,6 +69,7 @@ export default function ChatMessage({
   }
 
   const typeInfo = queryType ? QUERY_TYPE_LABELS[queryType] : null;
+  const hasSpeakers = speakers && Object.keys(speakers).length > 0;
 
   return (
     <div className="w-full">
@@ -60,6 +83,7 @@ export default function ChatMessage({
         </div>
       )}
       {sources && sources.length > 0 && <SourcesRow sources={sources} />}
+      {hasSpeakers && <SpeakersRow speakers={speakers} />}
       <MarkdownRenderer content={content} />
     </div>
   );
