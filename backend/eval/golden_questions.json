@@ -1,0 +1,1013 @@
+{
+  "version": "1.0",
+  "created": "2026-03-10",
+  "author": "Klaus",
+  "total_questions": 65,
+  "difficulty_distribution": {
+    "easy": 20,
+    "medium": 25,
+    "hard": 20
+  },
+  "questions": [
+    {
+      "id": "FL-01",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "easy",
+      "query": "Who was the first Speaker of the House of Representatives?",
+      "expected_answer": "Sir Frederick Holder was the first Speaker, elected on 9 May 1901.",
+      "key_sources": {
+        "date_range": ["1901-05-09", "1901-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": [],
+        "description": "1901 House of Representatives opening debates"
+      },
+      "verification": ["Speaker name (Frederick Holder)", "Date (9 May 1901)", "Chamber (House of Representatives)"],
+      "traps": []
+    },
+    {
+      "id": "FL-02",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "easy",
+      "query": "When was the Australia Act 1986 debated in parliament?",
+      "expected_answer": "Should reference debates in 1985-1986, passage of the Act.",
+      "key_sources": {
+        "date_range": ["1985-01-01", "1986-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1985-1986 House and Senate debates on the Australia Act"
+      },
+      "verification": ["Correct year range (1985-1986)", "Both chambers mentioned"],
+      "traps": []
+    },
+    {
+      "id": "FL-03",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "easy",
+      "query": "What was Gough Whitlam's first speech as Prime Minister?",
+      "expected_answer": "Should reference his first address to parliament after becoming PM in December 1972.",
+      "key_sources": {
+        "date_range": ["1972-12-01", "1973-03-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Whitlam"],
+        "description": "December 1972 / early 1973 House of Representatives"
+      },
+      "verification": ["Correct date (Dec 1972 or early 1973)", "Correct speaker (Whitlam)", "PM context"],
+      "traps": []
+    },
+    {
+      "id": "FL-04",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "medium",
+      "query": "Who introduced the National Health Act 1953?",
+      "expected_answer": "Sir Earle Page introduced the bill as Minister for Health in the Menzies government.",
+      "key_sources": {
+        "date_range": ["1953-01-01", "1953-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Page"],
+        "description": "1953 House of Representatives, second reading speech"
+      },
+      "verification": ["Correct minister (Earle Page)", "Correct parliament/government (Menzies)", "Correct context (Minister for Health)"],
+      "traps": []
+    },
+    {
+      "id": "FL-05",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "medium",
+      "query": "What did Robert Menzies say about the Petrov Affair in parliament?",
+      "expected_answer": "Should surface Menzies' statements from April 1954 onwards about the defection of Vladimir Petrov.",
+      "key_sources": {
+        "date_range": ["1954-04-01", "1954-06-30"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Menzies"],
+        "description": "April-May 1954 House of Representatives"
+      },
+      "verification": ["Correct speaker (Menzies)", "Correct event (Petrov defection)", "Correct timeframe (April 1954+)"],
+      "traps": []
+    },
+    {
+      "id": "FL-06",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "medium",
+      "query": "When was decimal currency discussed in parliament and who led the debate?",
+      "expected_answer": "Currency Act 1963 debates, transition in February 1966. Harold Holt as Treasurer was key figure.",
+      "key_sources": {
+        "date_range": ["1963-01-01", "1966-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Holt"],
+        "description": "1963 House debates on Currency Bill, 1965-66 transition discussions"
+      },
+      "verification": ["Key dates (1963, Feb 1966)", "Holt's role as Treasurer", "Correct legislative instrument (Currency Act)"],
+      "traps": []
+    },
+    {
+      "id": "FL-07",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "hard",
+      "query": "What were the key arguments for and against the Communist Party Dissolution Bill 1950?",
+      "expected_answer": "Menzies government introduced it; arguments for (national security, Cold War threat) and against (civil liberties, Dr Evatt's opposition). Bill passed both houses but later struck down by High Court.",
+      "key_sources": {
+        "date_range": ["1950-01-01", "1951-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": ["Menzies", "Evatt"],
+        "description": "1950 House and Senate debates"
+      },
+      "verification": ["Both sides represented", "Key speakers (Menzies, Evatt)", "Constitutional context (High Court struck down)"],
+      "traps": []
+    },
+    {
+      "id": "FL-08",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "easy",
+      "query": "Who was the longest-serving Prime Minister of Australia?",
+      "expected_answer": "Sir Robert Menzies, serving 1939-1941 and 1949-1966 (total ~18 years).",
+      "key_sources": {
+        "date_range": ["1939-01-01", "1966-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Menzies"],
+        "description": "Various, should cite Hansard appearances across those periods"
+      },
+      "verification": ["Correct PM (Menzies)", "Correct dates (both terms)", "May reference record-setting discussions"],
+      "traps": []
+    },
+    {
+      "id": "FL-09",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "medium",
+      "query": "What did Paul Keating say about the \"banana republic\" in parliament?",
+      "expected_answer": "The 'banana republic' comment was actually made on a John Laws radio interview (14 May 1986), not in parliament. A good system should note this but may find parliamentary responses and references to it.",
+      "key_sources": {
+        "date_range": ["1986-05-01", "1986-07-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Keating"],
+        "description": "May-June 1986 House debates referencing the remark"
+      },
+      "verification": ["Correctly distinguishes source of quote (radio, not parliament) vs parliamentary discussion"],
+      "traps": ["hallucination_trap: Famous quote was NOT made in parliament. Tests whether system fabricates in-parliament attribution."]
+    },
+    {
+      "id": "FL-10",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "medium",
+      "query": "When did parliament debate the Aboriginal and Torres Strait Islander Commission (ATSIC)?",
+      "expected_answer": "ATSIC established by the Aboriginal and Torres Strait Islander Commission Act 1989. Abolished 2005. Both events generated significant debate.",
+      "key_sources": {
+        "date_range": ["1989-01-01", "2005-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1989 debates (establishment), 2004-2005 debates (abolition)"
+      },
+      "verification": ["Both creation (1989) and abolition (2005)", "Correct years"],
+      "traps": []
+    },
+    {
+      "id": "FL-11",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "easy",
+      "query": "Who delivered the national apology to the Stolen Generations?",
+      "expected_answer": "Prime Minister Kevin Rudd, 13 February 2008, House of Representatives.",
+      "key_sources": {
+        "date_range": ["2008-02-13", "2008-02-13"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Rudd"],
+        "description": "2008-02-13 House of Representatives"
+      },
+      "verification": ["Exact date (13 Feb 2008)", "Correct speaker (Rudd)", "Correct chamber (House)"],
+      "traps": []
+    },
+    {
+      "id": "FL-12",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "hard",
+      "query": "What was said in parliament about the Tampa affair in August 2001?",
+      "expected_answer": "Should surface debates about MV Tampa, Norwegian freighter carrying asylum seekers, Howard government's response, Border Protection Bill.",
+      "key_sources": {
+        "date_range": ["2001-08-01", "2001-09-30"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "August-September 2001 House and Senate"
+      },
+      "verification": ["Multiple speakers", "Both sides of debate", "Correct timeline"],
+      "traps": []
+    },
+    {
+      "id": "FL-13",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "medium",
+      "query": "Who was the first woman elected to the Australian parliament?",
+      "expected_answer": "Dame Enid Lyons (House of Representatives) and Senator Dorothy Tangney (Senate), both elected in 1943.",
+      "key_sources": {
+        "date_range": ["1943-01-01", "1943-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": ["Lyons", "Tangney"],
+        "description": "1943 parliament opening, their maiden speeches"
+      },
+      "verification": ["Both women named", "Correct year (1943)", "Correct chambers"],
+      "traps": []
+    },
+    {
+      "id": "FL-14",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "easy",
+      "query": "What year was Question Time first broadcast on television?",
+      "expected_answer": "1991 (Senate) and 1991 (House). Should reference parliamentary debates about broadcasting.",
+      "key_sources": {
+        "date_range": ["1990-01-01", "1991-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1990-1991 debates on broadcasting of proceedings"
+      },
+      "verification": ["Correct year (1991)", "May find earlier discussions about the proposal"],
+      "traps": []
+    },
+    {
+      "id": "FL-15",
+      "query_type": "FACTUAL_LOOKUP",
+      "difficulty": "hard",
+      "query": "What were the main arguments during the republic referendum debate in 1999?",
+      "expected_answer": "Constitutional Convention (February 1998), referendum (6 November 1999). Arguments for (modern identity, Australian head of state) and against (if it ain't broke, direct election vs parliamentary appointment split). Key figures: Malcolm Turnbull (ARM), Kerry Jones (No Republic), PM Howard.",
+      "key_sources": {
+        "date_range": ["1998-01-01", "1999-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": ["Turnbull", "Howard"],
+        "description": "1998-1999 House and Senate debates"
+      },
+      "verification": ["Both sides represented", "Key figures named", "Correct referendum date (6 Nov 1999)"],
+      "traps": []
+    },
+    {
+      "id": "T-01",
+      "query_type": "TEMPORAL",
+      "difficulty": "easy",
+      "query": "What happened in parliament on 11 September 2001?",
+      "expected_answer": "Responses to the September 11 attacks. PM Howard was in Washington. Statements of condolence, security discussions.",
+      "key_sources": {
+        "date_range": ["2001-09-11", "2001-09-30"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": ["Howard"],
+        "description": "September 2001 House and Senate (likely 12 Sept AEST due to time zones)"
+      },
+      "verification": ["Correct date handling (AEST vs US time)", "Key speakers"],
+      "traps": ["date_trap: AEST means parliament likely responded on 12 September, not 11 September."]
+    },
+    {
+      "id": "T-02",
+      "query_type": "TEMPORAL",
+      "difficulty": "medium",
+      "query": "What was debated in the Senate during the last sitting week of 2019?",
+      "expected_answer": "Should identify the final sitting dates of 2019 and surface key debates from that period.",
+      "key_sources": {
+        "date_range": ["2019-11-15", "2019-12-15"],
+        "chambers": ["Senate"],
+        "speakers": [],
+        "description": "Late November / early December 2019 Senate"
+      },
+      "verification": ["Correct date identification", "Actual topics debated"],
+      "traps": []
+    },
+    {
+      "id": "T-03",
+      "query_type": "TEMPORAL",
+      "difficulty": "easy",
+      "query": "What was discussed in parliament the day after the 2004 Indian Ocean tsunami?",
+      "expected_answer": "The tsunami was 26 December 2004. Parliament was in recess. Should surface debates when parliament resumed in February 2005, including condolences and aid discussions.",
+      "key_sources": {
+        "date_range": ["2005-02-01", "2005-03-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "February 2005 House and Senate opening"
+      },
+      "verification": ["Handles recess correctly", "Does not hallucinate a sitting day on 27 Dec 2004"],
+      "traps": ["recess_trap: Parliament was in recess on 27 December 2004. System should not fabricate proceedings."]
+    },
+    {
+      "id": "T-04",
+      "query_type": "TEMPORAL",
+      "difficulty": "medium",
+      "query": "What legislation was passed in the first week of the Hawke government?",
+      "expected_answer": "Hawke won election 5 March 1983. Parliament opened late April 1983. Early legislation included Medicare, economic reform measures.",
+      "key_sources": {
+        "date_range": ["1983-04-01", "1983-06-30"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Hawke"],
+        "description": "April-May 1983 House of Representatives"
+      },
+      "verification": ["Correct PM (Hawke)", "Correct parliament opening date (not election date)", "Key legislation"],
+      "traps": ["date_trap: Election was 5 March 1983 but parliament didn't open until late April."]
+    },
+    {
+      "id": "T-05",
+      "query_type": "TEMPORAL",
+      "difficulty": "medium",
+      "query": "What happened in parliament during the week of the Bali bombings?",
+      "expected_answer": "Bali bombings were 12 October 2002. Parliament was sitting. Condolence motions, counter-terrorism discussions, travel warnings.",
+      "key_sources": {
+        "date_range": ["2002-10-12", "2002-10-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": ["Howard", "Crean"],
+        "description": "October 2002 House and Senate"
+      },
+      "verification": ["Correct week", "Appropriate solemnity", "Key speakers (Howard, Crean)"],
+      "traps": []
+    },
+    {
+      "id": "T-06",
+      "query_type": "TEMPORAL",
+      "difficulty": "easy",
+      "query": "What was the first bill introduced in the 47th Parliament?",
+      "expected_answer": "47th Parliament opened 26 July 2022 (Albanese government). Should identify the first bill introduced.",
+      "key_sources": {
+        "date_range": ["2022-07-25", "2022-08-05"],
+        "chambers": ["House of Representatives"],
+        "speakers": [],
+        "description": "Late July 2022 House of Representatives"
+      },
+      "verification": ["Correct parliament number (47th)", "Correct date", "Actual first bill"],
+      "traps": []
+    },
+    {
+      "id": "T-07",
+      "query_type": "TEMPORAL",
+      "difficulty": "hard",
+      "query": "How did parliamentary debate change in the weeks after the Port Arthur massacre?",
+      "expected_answer": "Port Arthur was 28 April 1996. Howard government moved rapidly on gun control. Should show shift in tone, bipartisan support, National Firearms Agreement discussions.",
+      "key_sources": {
+        "date_range": ["1996-05-01", "1996-07-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": ["Howard"],
+        "description": "May-June 1996 House and Senate"
+      },
+      "verification": ["Timeline accuracy", "Tone shift noted", "Both chambers", "Key speakers"],
+      "traps": []
+    },
+    {
+      "id": "T-08",
+      "query_type": "TEMPORAL",
+      "difficulty": "medium",
+      "query": "What legislation was debated during the 2020 COVID lockdowns?",
+      "expected_answer": "Should surface JobKeeper, JobSeeker, Biosecurity Act emergency powers, reduced parliamentary sittings, remote participation debates.",
+      "key_sources": {
+        "date_range": ["2020-03-01", "2020-06-30"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "March-June 2020 House and Senate"
+      },
+      "verification": ["Correct legislation names", "Unusual sitting arrangements noted"],
+      "traps": []
+    },
+    {
+      "id": "T-09",
+      "query_type": "TEMPORAL",
+      "difficulty": "easy",
+      "query": "When was the last time a Prime Minister was removed by their own party in a parliamentary sitting week?",
+      "expected_answer": "Multiple instances: Rudd/Gillard/Rudd (2010, 2013), Abbott/Turnbull (2015), Turnbull/Morrison (2018). Should identify the most recent.",
+      "key_sources": {
+        "date_range": ["2018-08-20", "2018-08-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": [],
+        "description": "August 2018 (Turnbull to Morrison) or other leadership spills"
+      },
+      "verification": ["Correct date", "Correct parties involved", "Most recent identified"],
+      "traps": []
+    },
+    {
+      "id": "T-10",
+      "query_type": "TEMPORAL",
+      "difficulty": "hard",
+      "query": "What was parliament doing in the month before federation?",
+      "expected_answer": "The federal parliament didn't exist before 1 May 1901. The corpus starts at federation. A good system should recognise this boundary.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": [],
+        "speakers": [],
+        "description": "None (pre-corpus). May reference early 1901 debates about the transition."
+      },
+      "verification": ["Handles corpus boundary gracefully", "Does not hallucinate pre-federation proceedings"],
+      "traps": ["corpus_boundary_trap: Federal parliament did not exist before May 1901. System must not fabricate."]
+    },
+    {
+      "id": "TH-01",
+      "query_type": "THEMATIC",
+      "difficulty": "hard",
+      "query": "How has parliamentary language about climate change evolved from the 1990s to today?",
+      "expected_answer": "Should show progression: 'greenhouse effect' (early), 'climate change' (2000s), increasing urgency, Paris Agreement, net zero. Different party positions over time.",
+      "key_sources": {
+        "date_range": ["1990-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Spread across 1990s-2020s, both chambers"
+      },
+      "verification": ["Temporal spread in sources", "Language evolution noted", "Not just recent results"],
+      "traps": []
+    },
+    {
+      "id": "TH-02",
+      "query_type": "THEMATIC",
+      "difficulty": "medium",
+      "query": "What has been the parliamentary debate around water rights in the Murray-Darling Basin?",
+      "expected_answer": "Long-running issue. Water Act 2007, Murray-Darling Basin Plan 2012, buybacks, irrigators vs environment, state disputes.",
+      "key_sources": {
+        "date_range": ["2007-01-01", "2023-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "2007-2023, multiple debates"
+      },
+      "verification": ["Multi-decade coverage", "Key legislation named", "Competing interests represented"],
+      "traps": []
+    },
+    {
+      "id": "TH-03",
+      "query_type": "THEMATIC",
+      "difficulty": "hard",
+      "query": "How has parliament discussed Indigenous constitutional recognition over the decades?",
+      "expected_answer": "1967 referendum (remove discriminatory clauses), reconciliation movement (1990s-2000s), Expert Panel (2012), Uluru Statement (2017), Voice referendum (2023). Long arc.",
+      "key_sources": {
+        "date_range": ["1967-01-01", "2023-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1967, 1990s reconciliation debates, 2012-2023"
+      },
+      "verification": ["Full timeline", "Key milestones", "Not just recent Voice debate"],
+      "traps": []
+    },
+    {
+      "id": "TH-04",
+      "query_type": "THEMATIC",
+      "difficulty": "medium",
+      "query": "What recurring concerns have been raised about foreign ownership of Australian agricultural land?",
+      "expected_answer": "Perennial issue. Foreign Acquisitions and Takeovers Act, FIRB thresholds, specific concerns about Chinese investment, register of foreign ownership (2015).",
+      "key_sources": {
+        "date_range": ["1975-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Debates across multiple decades, agriculture committees"
+      },
+      "verification": ["Historical depth", "Not just recent debates"],
+      "traps": []
+    },
+    {
+      "id": "TH-05",
+      "query_type": "THEMATIC",
+      "difficulty": "medium",
+      "query": "How has parliament debated university funding models?",
+      "expected_answer": "Whitlam free education (1973), HECS introduction (1989, Dawkins), HELP system, deregulation attempts (2014), Job-ready Graduates (2020).",
+      "key_sources": {
+        "date_range": ["1973-01-01", "2020-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1973, 1989, 2003, 2014, 2020"
+      },
+      "verification": ["Multiple reform moments", "Correct ministers/PMs attributed"],
+      "traps": []
+    },
+    {
+      "id": "TH-06",
+      "query_type": "THEMATIC",
+      "difficulty": "hard",
+      "query": "What patterns emerge in parliamentary debate about immigration detention?",
+      "expected_answer": "Mandatory detention (1992, Keating), Pacific Solution (2001, Howard), Manus/Nauru, children in detention, Medevac, bipartisan tough stance vs crossbench/Greens opposition.",
+      "key_sources": {
+        "date_range": ["1992-01-01", "2019-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1992, 2001, 2012-2019"
+      },
+      "verification": ["Both sides", "Policy evolution", "Key turning points"],
+      "traps": []
+    },
+    {
+      "id": "TH-07",
+      "query_type": "THEMATIC",
+      "difficulty": "medium",
+      "query": "How has the role of the Senate crossbench changed over time?",
+      "expected_answer": "DLP (1950s-70s), Democrats (1977-2007), Greens (2000s+), minor parties (Palmer, Lambie, One Nation). Balance of power dynamics, blocking supply, amendments.",
+      "key_sources": {
+        "date_range": ["1950-01-01", "2026-12-31"],
+        "chambers": ["Senate"],
+        "speakers": [],
+        "description": "Various eras, Senate debates"
+      },
+      "verification": ["Multiple eras covered", "Specific examples"],
+      "traps": []
+    },
+    {
+      "id": "TH-08",
+      "query_type": "THEMATIC",
+      "difficulty": "medium",
+      "query": "What has parliament said about mental health funding over the past 20 years?",
+      "expected_answer": "Better Access program (2006), NDIS interactions, COVID mental health response, Productivity Commission inquiry (2020), headspace funding.",
+      "key_sources": {
+        "date_range": ["2006-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "2006-2024 debates"
+      },
+      "verification": ["Key programs named", "Funding discussions", "Not just platitudes"],
+      "traps": []
+    },
+    {
+      "id": "TH-09",
+      "query_type": "THEMATIC",
+      "difficulty": "hard",
+      "query": "How have attitudes toward nuclear energy shifted in Australian parliamentary debate?",
+      "expected_answer": "Long-standing bipartisan opposition, ANSTO/Lucas Heights discussions, Coalition shift toward nuclear (2023-24, Dutton's proposal), moratorium debates.",
+      "key_sources": {
+        "date_range": ["1970-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Various decades, especially 2023-2024"
+      },
+      "verification": ["Historical opposition AND recent shift", "Both sides"],
+      "traps": []
+    },
+    {
+      "id": "TH-10",
+      "query_type": "THEMATIC",
+      "difficulty": "medium",
+      "query": "What has been the parliamentary response to each major bushfire season?",
+      "expected_answer": "Ash Wednesday (1983), 2003 Canberra fires, Black Saturday (2009), Black Summer (2019-20). Inquiries, funding, climate linkage debates.",
+      "key_sources": {
+        "date_range": ["1983-01-01", "2020-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1983, 2003, 2009, 2020"
+      },
+      "verification": ["Multiple events covered", "Not just Black Summer"],
+      "traps": []
+    },
+    {
+      "id": "C-01",
+      "query_type": "COMPARISON",
+      "difficulty": "hard",
+      "query": "Compare Labor and Liberal positions on the GST from its introduction to now.",
+      "expected_answer": "Howard introduced GST (1998-2000), Labor opposed then accepted. Subsequent debates about rate, base, distribution to states.",
+      "key_sources": {
+        "date_range": ["1998-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1998-2000 (introduction), periodic debates since"
+      },
+      "verification": ["Both parties' positions", "Evolution over time", "Key speakers"],
+      "traps": []
+    },
+    {
+      "id": "C-02",
+      "query_type": "COMPARISON",
+      "difficulty": "medium",
+      "query": "How did the Senate and House differ in their debate on the Marriage Amendment Act 2017?",
+      "expected_answer": "Same-sex marriage. Postal survey, then legislation. Different tone/emphasis between chambers. Senate crossbench dynamics vs House conscience vote.",
+      "key_sources": {
+        "date_range": ["2017-11-01", "2017-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "November-December 2017 both chambers"
+      },
+      "verification": ["Both chambers represented", "Different dynamics noted"],
+      "traps": []
+    },
+    {
+      "id": "C-03",
+      "query_type": "COMPARISON",
+      "difficulty": "hard",
+      "query": "Compare how John Howard and Kevin Rudd spoke about national security in parliament.",
+      "expected_answer": "Howard: post-9/11, Iraq War, counter-terrorism legislation, Tampa. Rudd: withdrawal from Iraq, different framing but continuity on counter-terrorism.",
+      "key_sources": {
+        "date_range": ["2001-01-01", "2010-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Howard", "Rudd"],
+        "description": "2001-2007 (Howard), 2007-2010 (Rudd)"
+      },
+      "verification": ["Both PMs represented", "Specific policy differences", "Correct attributions"],
+      "traps": []
+    },
+    {
+      "id": "C-04",
+      "query_type": "COMPARISON",
+      "difficulty": "medium",
+      "query": "How did the Greens and Nationals differ on the Carbon Pollution Reduction Scheme?",
+      "expected_answer": "CPRS (2009). Greens opposed (too weak), Nationals opposed (too strong/damaging to regions). Ironic alignment in voting against, completely different reasons.",
+      "key_sources": {
+        "date_range": ["2009-01-01", "2009-12-31"],
+        "chambers": ["Senate"],
+        "speakers": [],
+        "description": "2009 Senate debates"
+      },
+      "verification": ["Both parties' positions accurately represented", "Irony of outcome noted"],
+      "traps": []
+    },
+    {
+      "id": "C-05",
+      "query_type": "COMPARISON",
+      "difficulty": "medium",
+      "query": "Compare the maiden speeches of Julia Gillard and Tony Abbott.",
+      "expected_answer": "Gillard: 11 November 1998. Abbott: 6 May 1994. Different backgrounds, priorities, styles.",
+      "key_sources": {
+        "date_range": ["1994-05-06", "1998-11-11"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Gillard", "Abbott"],
+        "description": "Specific dates in House of Representatives"
+      },
+      "verification": ["Correct dates", "Actual content from speeches", "Fair comparison"],
+      "traps": []
+    },
+    {
+      "id": "C-06",
+      "query_type": "COMPARISON",
+      "difficulty": "hard",
+      "query": "How have Treasury and Finance ministers from different governments described the state of the economy upon taking office?",
+      "expected_answer": "Recurring pattern: incoming Treasurers claiming inherited mess. Costello on Keating's debt, Swan on GFC timing, Frydenberg on COVID, Chalmers on Coalition legacy.",
+      "key_sources": {
+        "date_range": ["1996-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Costello", "Swan", "Frydenberg", "Chalmers"],
+        "description": "Budget speeches, first economic statements post-election"
+      },
+      "verification": ["Multiple transitions covered", "Correct attributions", "Pattern identified"],
+      "traps": []
+    },
+    {
+      "id": "C-07",
+      "query_type": "COMPARISON",
+      "difficulty": "medium",
+      "query": "Compare how parliament debated the Iraq War versus the Afghanistan deployment.",
+      "expected_answer": "Iraq (2003): deeply divisive, no UN mandate, large protests. Afghanistan (2001): bipartisan support initially, debate grew over time about withdrawal.",
+      "key_sources": {
+        "date_range": ["2001-10-01", "2003-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "2001-2003 for initial debates, subsequent reviews"
+      },
+      "verification": ["Different levels of consensus", "Correct timelines"],
+      "traps": []
+    },
+    {
+      "id": "C-08",
+      "query_type": "COMPARISON",
+      "difficulty": "medium",
+      "query": "How did the debates around the Racial Discrimination Act differ between the original 1975 passage and the 2014 attempted amendments?",
+      "expected_answer": "1975: Whitlam government, broad anti-discrimination. 2014: Abbott government's attempt to amend Section 18C ('bigotry' vs 'free speech'), ultimately dropped.",
+      "key_sources": {
+        "date_range": ["1975-01-01", "2014-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1975 debates, 2014 debates (especially Senate)"
+      },
+      "verification": ["Correct acts/sections", "Both eras"],
+      "traps": []
+    },
+    {
+      "id": "C-09",
+      "query_type": "COMPARISON",
+      "difficulty": "medium",
+      "query": "Compare the parliamentary reception of the 1992 Mabo decision and the 1996 Wik decision.",
+      "expected_answer": "Mabo: Native Title Act 1993 (Keating). Wik: Pastoral leases, Ten Point Plan (Howard). Very different political contexts and responses.",
+      "key_sources": {
+        "date_range": ["1993-01-01", "1998-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1993 (NTA debates), 1997-1998 (Wik/Ten Point Plan)"
+      },
+      "verification": ["Correct decisions", "Correct legislation", "Different government responses"],
+      "traps": []
+    },
+    {
+      "id": "C-10",
+      "query_type": "COMPARISON",
+      "difficulty": "hard",
+      "query": "How do Question Time dynamics differ between the House of Representatives and the Senate?",
+      "expected_answer": "House is more adversarial (Dorothy Dixers, Speaker interventions), Senate has more crossbench participation and supplementary questions.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Various Question Time transcripts from both chambers"
+      },
+      "verification": ["Structural differences identified", "Specific examples"],
+      "traps": []
+    },
+    {
+      "id": "SP-01",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "medium",
+      "query": "What were Penny Wong's key speeches on foreign policy?",
+      "expected_answer": "As Foreign Minister (2022+) and Shadow Foreign Minister before that. AUKUS, Pacific engagement, China relationship, climate diplomacy.",
+      "key_sources": {
+        "date_range": ["2019-01-01", "2026-12-31"],
+        "chambers": ["Senate"],
+        "speakers": ["Wong"],
+        "description": "2019-2026 Senate"
+      },
+      "verification": ["Correct portfolio", "Key topics", "Recent speeches"],
+      "traps": []
+    },
+    {
+      "id": "SP-02",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "medium",
+      "query": "What did Bob Hawke talk about most in parliament?",
+      "expected_answer": "Economic reform, Medicare, industrial relations, environment (Antarctic mining ban), 'bringing Australia together.' PM 1983-1991.",
+      "key_sources": {
+        "date_range": ["1980-01-01", "1992-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Hawke"],
+        "description": "1980-1992 House of Representatives"
+      },
+      "verification": ["Major themes", "Correct period", "Not just famous moments"],
+      "traps": []
+    },
+    {
+      "id": "SP-03",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "easy",
+      "query": "What was Paul Keating known for saying in parliament?",
+      "expected_answer": "Famous for aggressive parliamentary style. 'Redfern speech' was NOT in parliament (but may be referenced). In parliament: 'recession we had to have', dispatch box confrontations, insults.",
+      "key_sources": {
+        "date_range": ["1983-01-01", "1996-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Keating"],
+        "description": "1983-1996 House of Representatives"
+      },
+      "verification": ["Distinguishes in-parliament vs out-of-parliament quotes"],
+      "traps": ["hallucination_trap: Redfern speech was NOT delivered in parliament. Tests whether system fabricates in-parliament attribution."]
+    },
+    {
+      "id": "SP-04",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "medium",
+      "query": "What positions has Peter Dutton held and what has he spoken about most?",
+      "expected_answer": "Minister for Immigration, Home Affairs, Defence. Opposition Leader from 2022. Key topics: national security, immigration, border protection, more recently nuclear energy.",
+      "key_sources": {
+        "date_range": ["2002-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Dutton"],
+        "description": "2002-2026 House of Representatives"
+      },
+      "verification": ["Career progression", "Topic evolution", "Current role"],
+      "traps": []
+    },
+    {
+      "id": "SP-05",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "hard",
+      "query": "How did Neville Bonner contribute to parliamentary debate?",
+      "expected_answer": "First Indigenous Australian in federal parliament (Senator for Queensland, 1971-1983, Liberal). Spoke on Aboriginal rights, land rights, reconciliation.",
+      "key_sources": {
+        "date_range": ["1971-01-01", "1983-12-31"],
+        "chambers": ["Senate"],
+        "speakers": ["Bonner"],
+        "description": "1971-1983 Senate"
+      },
+      "verification": ["Correct dates", "Significance noted", "Key contributions"],
+      "traps": []
+    },
+    {
+      "id": "SP-06",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "medium",
+      "query": "What were the major themes of Amanda Vanstone's Senate career?",
+      "expected_answer": "Liberal Senator for SA (1984-2007). Immigration Minister (controversial: Cornelia Rau, Vivian Solon cases), Employment Minister, Justice Minister.",
+      "key_sources": {
+        "date_range": ["1984-01-01", "2007-12-31"],
+        "chambers": ["Senate"],
+        "speakers": ["Vanstone"],
+        "description": "1984-2007 Senate"
+      },
+      "verification": ["Key portfolios", "Notable events during tenure"],
+      "traps": []
+    },
+    {
+      "id": "SP-07",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "easy",
+      "query": "When did Anthony Albanese enter parliament and what was his maiden speech about?",
+      "expected_answer": "Elected 1996, Member for Grayndler. Maiden speech referenced his upbringing in public housing, single mother, social justice.",
+      "key_sources": {
+        "date_range": ["1996-01-01", "1996-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Albanese"],
+        "description": "1996 House of Representatives maiden speech"
+      },
+      "verification": ["Correct year (1996)", "Correct electorate (Grayndler)", "Key themes"],
+      "traps": []
+    },
+    {
+      "id": "SP-08",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "hard",
+      "query": "What was Lionel Murphy's impact on the Senate?",
+      "expected_answer": "Labor Senator (1962-1974), then Attorney-General under Whitlam. Family Law Act, Trade Practices Act, racial discrimination legislation. Later appointed to High Court (controversial).",
+      "key_sources": {
+        "date_range": ["1962-01-01", "1974-12-31"],
+        "chambers": ["Senate"],
+        "speakers": ["Murphy"],
+        "description": "1962-1974 Senate, 1972-1974 as AG"
+      },
+      "verification": ["Legislative achievements", "Correct timeline", "Significance"],
+      "traps": []
+    },
+    {
+      "id": "SP-09",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "medium",
+      "query": "What did Pauline Hanson say in her maiden speech?",
+      "expected_answer": "10 September 1996, House of Representatives. Controversial speech about Aboriginal welfare, Asian immigration, multiculturalism. Widely debated.",
+      "key_sources": {
+        "date_range": ["1996-09-10", "1996-09-10"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Hanson"],
+        "description": "1996-09-10 House of Representatives"
+      },
+      "verification": ["Exact date (10 Sep 1996)", "Key themes", "Context of controversy"],
+      "traps": []
+    },
+    {
+      "id": "SP-10",
+      "query_type": "SPEAKER_PROFILE",
+      "difficulty": "medium",
+      "query": "How did Julia Gillard's parliamentary rhetoric change between opposition and government?",
+      "expected_answer": "Shadow minister, then PM (2010-2013). Should show evolution from policy critique to defence of government. Famous misogyny speech (October 2012). Carbon tax debates.",
+      "key_sources": {
+        "date_range": ["2007-01-01", "2013-12-31"],
+        "chambers": ["House of Representatives"],
+        "speakers": ["Gillard"],
+        "description": "2007-2013 House of Representatives"
+      },
+      "verification": ["Both phases of career", "Tone shift", "Key moments"],
+      "traps": []
+    },
+    {
+      "id": "E-01",
+      "query_type": "EXPLORATORY",
+      "difficulty": "medium",
+      "query": "Tell me about the Franklin Dam controversy in parliament.",
+      "expected_answer": "1983 federal election issue. Tasmania's Gordon-below-Franklin dam. Hawke government used external affairs power to stop it. World Heritage Properties Conservation Act 1983. Tasmanian Wilderness Society.",
+      "key_sources": {
+        "date_range": ["1983-01-01", "1983-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "1983 House and Senate debates"
+      },
+      "verification": ["Correct details", "Constitutional mechanism (external affairs power)", "Key players"],
+      "traps": []
+    },
+    {
+      "id": "E-02",
+      "query_type": "EXPLORATORY",
+      "difficulty": "medium",
+      "query": "What is the history of conscience votes in Australian parliament?",
+      "expected_answer": "Traditional on moral/ethical issues: euthanasia, same-sex marriage, RU486, stem cell research. Not always granted. Party discipline vs free vote tension.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Various debates where conscience votes occurred"
+      },
+      "verification": ["Multiple examples", "Correct categorisation"],
+      "traps": []
+    },
+    {
+      "id": "E-03",
+      "query_type": "EXPLORATORY",
+      "difficulty": "easy",
+      "query": "What is the Hansard and why does it exist?",
+      "expected_answer": "Official transcript of parliamentary proceedings. Named after Thomas Curson Hansard (UK printer). In Australia, produced by the Department of Parliamentary Services. Near-verbatim record.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": [],
+        "speakers": [],
+        "description": "May find meta-discussions about Hansard accuracy, corrections"
+      },
+      "verification": ["Correct definition", "May not need Hansard sources (knowledge question)"],
+      "traps": []
+    },
+    {
+      "id": "E-04",
+      "query_type": "EXPLORATORY",
+      "difficulty": "medium",
+      "query": "What happened with the WorkChoices legislation?",
+      "expected_answer": "Howard government's 2005 industrial relations reform. Workplace Relations Amendment (Work Choices) Act 2005. Highly controversial, contributed to 2007 election loss. Fair Work Act 2009 (Rudd) replaced it.",
+      "key_sources": {
+        "date_range": ["2005-01-01", "2009-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "2005-2006 debates (passage), 2007-2009 (repeal/replacement)"
+      },
+      "verification": ["Full lifecycle", "Both sides", "Electoral impact"],
+      "traps": []
+    },
+    {
+      "id": "E-05",
+      "query_type": "EXPLORATORY",
+      "difficulty": "hard",
+      "query": "What can you tell me about parliamentary privilege and its controversies?",
+      "expected_answer": "Members can say things in parliament without legal liability. Key cases: use for making allegations (e.g. Heffernan allegations against Michael Kirby 2002, Whitlam naming ASIO agent). Privilege committee processes.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Various privilege debates, specific incidents"
+      },
+      "verification": ["Correct understanding of privilege", "Specific examples"],
+      "traps": []
+    },
+    {
+      "id": "E-06",
+      "query_type": "EXPLORATORY",
+      "difficulty": "medium",
+      "query": "What's the story of the Senate blocking supply?",
+      "expected_answer": "Constitutional convention that Senate can but shouldn't block supply (money bills). 1975 crisis: Senate deferred supply, leading to Whitlam's dismissal. Only happened once at federal level.",
+      "key_sources": {
+        "date_range": ["1974-01-01", "1975-12-31"],
+        "chambers": ["Senate"],
+        "speakers": [],
+        "description": "1974-1975 Senate debates, subsequent discussions of conventions"
+      },
+      "verification": ["1975 crisis correctly described", "Constitutional context"],
+      "traps": []
+    },
+    {
+      "id": "E-07",
+      "query_type": "EXPLORATORY",
+      "difficulty": "medium",
+      "query": "What has parliament said about housing affordability?",
+      "expected_answer": "Recurring theme across decades. First Home Owners Grant (2000), negative gearing debates, Help to Buy, Housing Australia Future Fund. Supply vs demand arguments.",
+      "key_sources": {
+        "date_range": ["2000-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "Multiple decades of budget and policy debates"
+      },
+      "verification": ["Historical depth", "Multiple policy approaches", "Not just recent"],
+      "traps": []
+    },
+    {
+      "id": "E-08",
+      "query_type": "EXPLORATORY",
+      "difficulty": "easy",
+      "query": "What is the process for a bill becoming law in Australia?",
+      "expected_answer": "Introduction, first reading, second reading (debate), committee stage, third reading, repeat in other chamber, royal assent.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "May find procedural debates, bills going through stages"
+      },
+      "verification": ["Correct process", "Properly ordered stages"],
+      "traps": []
+    },
+    {
+      "id": "E-09",
+      "query_type": "EXPLORATORY",
+      "difficulty": "hard",
+      "query": "What are some of the most memorable parliamentary confrontations in Australian history?",
+      "expected_answer": "Keating's insults, Gillard misogyny speech (2012), Whitlam/Snedden exchanges, suspensions.",
+      "key_sources": {
+        "date_range": [],
+        "chambers": ["House of Representatives"],
+        "speakers": [],
+        "description": "Various dramatic debates across eras"
+      },
+      "verification": ["Multiple eras", "Specific quotes/incidents", "Not just recent"],
+      "traps": []
+    },
+    {
+      "id": "E-10",
+      "query_type": "EXPLORATORY",
+      "difficulty": "medium",
+      "query": "What has parliament debated about artificial intelligence?",
+      "expected_answer": "Relatively recent topic. Select Committee on Adopting AI (2024), regulation discussions, impact on jobs, defence applications, deepfakes/misinformation.",
+      "key_sources": {
+        "date_range": ["2023-01-01", "2026-12-31"],
+        "chambers": ["House of Representatives", "Senate"],
+        "speakers": [],
+        "description": "2023-2026 debates"
+      },
+      "verification": ["Correct committee", "Recent focus", "Range of concerns"],
+      "traps": []
+    }
+  ],
+  "scoring": {
+    "metrics": {
+      "classification": "Was query type correct? (boolean)",
+      "retrieval_p5": "Relevant sources in top 5 (0-5)",
+      "retrieval_p10": "Relevant sources in top 10 (0-10)",
+      "answer_accuracy": "1=wrong, 3=partial, 5=correct and complete",
+      "citation_quality": "1=none, 3=some cited, 5=all claims cited",
+      "hallucination": "Any fabricated facts? (boolean)",
+      "completeness": "1=superficial, 3=adequate, 5=thorough"
+    },
+    "aggregates": [
+      "Retrieval recall: % of key sources surfaced",
+      "Answer accuracy: mean across all questions",
+      "Hallucination rate: % of questions with any fabrication",
+      "Classification accuracy: % correct query types",
+      "Hard question score: accuracy on Hard questions specifically"
+    ]
+  },
+  "notes": [
+    "FL-09 (banana republic) and SP-03 (Keating quotes) are deliberate hallucination traps — famous quotes happened OUTSIDE parliament.",
+    "T-10 (pre-federation) tests corpus boundary handling.",
+    "T-03 (tsunami) tests recess awareness.",
+    "Several questions span the pre-2006/post-2006 XML format boundary.",
+    "Comparison questions require multi-search strategies."
+  ]
+}
